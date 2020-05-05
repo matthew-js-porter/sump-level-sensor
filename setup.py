@@ -5,5 +5,5 @@ setup(
     description='A tool that will report if the water level in the sump is past a certain level using a float sensor',
     author='Matt Porter',
     author_email="matthew.js.porter@gmail.com",
-    install_requires=['gpiozero']
+    install_requires=['gpiozero', 'boto3']
 )
