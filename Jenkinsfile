@@ -20,6 +20,6 @@ node {
     }
 
     stage('run container') {
-        sh "sudo docker run --privileged -v ${HOME}/.aws:/root/.aws sump:latest"
+        sh "sudo docker run --privileged -v /root/.aws:/root/.aws sump:latest"
     }
 }
