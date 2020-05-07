@@ -6,3 +6,6 @@ topicARN = 'arn:aws:sns:us-east-1:545853618712:sump-water-level'
 
 messageQueue = MessageQueue(client, topicARN)
 messageQueue.publish("Hello World!")
+
+while True:
+    pass
