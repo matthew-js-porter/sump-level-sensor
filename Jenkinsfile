@@ -12,14 +12,14 @@ node {
     }
 
     stage('package') {
-        sh "sudo python3 setup.py sdist"
+        sh "sudo -S python3 setup.py sdist"
     }
 
     stage('build container') {
-        sh "sudo docker build . -t sump:latest"
+        sh "sudo -S docker build . -t sump:latest"
     }
 
     stage('run container') {
-        sh "sudo docker run --privileged -v ${HOME}/.aws:/root/.aws sump:latest"
+        sh "sudo -S docker run --privileged -v ${HOME}/.aws:/root/.aws sump:latest"
     }
 }
