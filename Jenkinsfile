@@ -4,7 +4,7 @@ node {
     }
 
     stage('build') {
-        sh "python3 setup.py install"
+        sh "python3 setup.py build"
     }
 
     stage('test') {
