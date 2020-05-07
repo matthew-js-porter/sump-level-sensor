@@ -21,7 +21,7 @@ node {
 
     stage('run container') {
         withCredentials([usernamePassword(credentialsId: 'AWS_CREDENTIALS', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
-            sh "sudo docker rm sump || {:;}"
+            sh "sudo docker rm sump || { :; }"
             sh "sudo docker run --privileged -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION=us-east-1 --name sump --restart=always sump:latest"
         }
     }
