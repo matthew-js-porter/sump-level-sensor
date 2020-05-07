@@ -12,7 +12,7 @@ node {
     }
 
     stage('package') {
-        sh "python3 setup.py sdist"
+        sh "sudo python3 setup.py sdist"
     }
 
     stage('build container') {
