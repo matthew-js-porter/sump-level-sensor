@@ -4,7 +4,7 @@ node {
     }
 
     stage('build') {
-        sh "python3 setup.py build"
+        sh "whoami"
     }
 
     stage('test') {
