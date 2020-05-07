@@ -4,7 +4,7 @@ node {
     }
 
     stage('build') {
-        sh "python3 setup.py build"
+        sh "python3 setup.py install"
     }
 
     stage('test') {
@@ -12,7 +12,7 @@ node {
     }
 
     stage('package') {
-        sh "python setup.py sdist"
+        sh "python3 setup.py sdist"
     }
 
     stage('build container') {
@@ -20,6 +20,6 @@ node {
     }
 
     stage('run container') {
-        sh "sudo docker run -v ${HOME}/.aws:/root/.aws sump:latest"
+        sh "sudo docker run --privileged -v ${HOME}/.aws:/root/.aws sump:latest"
     }
 }

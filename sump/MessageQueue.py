@@ -1,6 +1,3 @@
-import boto3
-
-
 class MessageQueue:
     def __init__(self, client, topic_arn: str):
         self.topic_arn = topic_arn
