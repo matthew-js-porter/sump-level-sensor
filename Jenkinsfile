@@ -3,6 +3,10 @@ node {
         checkout scm
     }
 
+    stage('build') {
+        sh "python3 setup.py build"
+    }
+
     stage('test') {
         sh "python3 setup.py test"
     }
@@ -12,10 +16,10 @@ node {
     }
 
     stage('build container') {
-        sh "docker build . -t sump:latest"
+        sh "sudo docker build . -t sump:latest"
     }
 
     stage('run container') {
-        sh "docker run -v ${HOME}/.aws:/root/.aws sump:latest"
+        sh "sudo docker run -v ${HOME}/.aws:/root/.aws sump:latest"
     }
 }
