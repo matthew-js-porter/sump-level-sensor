@@ -11,4 +11,3 @@ WORKDIR sump
 ENV PYTHONPATH=sump
 RUN python3 -m pip install -r sump_level_sensor.egg-info/requires.txt
 CMD python3 ./sump/sump.py
-CMD python3 ./sump/sump.py
