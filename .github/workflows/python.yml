@@ -25,12 +25,13 @@ jobs:
     - name: Package
       run: |
         python setup.py bdist_wheel
-    - name: Prepare Docker buildx
-      id: buildx
-      uses: crazy-max/ghaction-docker-buildx@v1
+    - name: Docker Build
+      uses: jlesage/docker_buildx@multi-tags
       with:
-        buildx-version: latest
+        imageName: matthewjsporter/sump-level-sensor
+        tag: latest
+        platform: linux/arm64
+        publish: true
+        dockerHubUser: ${{ secrets.DOCKER_USERNAME }}
+        dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }}
         qemu-version: latest
-    - name: Docker build
-      run: |
-        docker buildx build --platform=linux/arm64 .
