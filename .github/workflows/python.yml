@@ -34,7 +34,7 @@ jobs:
     - name: Docker build
       run: |
         echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-        docker buildx push --platform=linux/arm64 .
+        docker buildx build --platform=linux/arm64 --push .
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
