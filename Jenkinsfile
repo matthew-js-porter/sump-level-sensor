@@ -4,7 +4,7 @@ node {
     }
 
     stage('build') {
-        sh "python3 -m venv"
+        sh "python3 -m venv venv"
         sh "source ./venv/bin/activate"
         sh "pip install ."
     }
