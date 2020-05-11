@@ -4,15 +4,17 @@ node {
     }
 
     stage('build') {
-        sh "python3 setup.py build"
+        sh "python3 -m venv"
+        sh "source ./venv/bin/activate"
+        sh "pip install ."
     }
 
     stage('test') {
-        sh "python3 setup.py test"
+        sh "python setup.py test"
     }
 
     stage('package') {
-        sh "sudo python3 setup.py sdist"
+        sh "python setup.py sdist bdist_wheel"
     }
 
     stage('build container') {

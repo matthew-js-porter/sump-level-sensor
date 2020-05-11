@@ -1,11 +1,18 @@
 import boto3
-from MessageQueue import MessageQueue
+from sump.FloatSensor import FloatSensor
+from sump.MessageQueue import MessageQueue
 
-client = boto3.client('sns')
-topicARN = 'arn:aws:sns:us-east-1:545853618712:sump-water-level'
+def main():
+    client = boto3.client('sns')
+    topicARN = 'arn:aws:sns:us-east-1:545853618712:sump-water-level'
 
-messageQueue = MessageQueue(client, topicARN)
-messageQueue.publish("Hello World!")
+    messageQueue = MessageQueue(client, topicARN)
+    messageQueue.publish("Hello World!")
 
-while True:
-    pass
+    #float_sensor = FloatSensor('BOARD11')
+
+    while True:
+        pass
+
+if __name__ == '__main__':
+    main()

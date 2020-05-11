@@ -7,5 +7,10 @@ setuptools.setup(
     author_email="matthew.js.porter@gmail.com",
     install_requires=['gpiozero', 'boto3'],
     packages=setuptools.find_packages(),
-    test_suite='tests'
+    test_suite='tests',
+    entry_points = {
+        "console_scripts" : [
+            "sump = sump.sump:main"
+        ]
+    }
 )
