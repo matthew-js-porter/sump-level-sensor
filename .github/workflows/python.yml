@@ -37,4 +37,4 @@ jobs:
         docker buildx push --platform=linux/arm64 .
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: {{ secrets.DOCKER_PASSWORD }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
