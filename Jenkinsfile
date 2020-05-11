@@ -21,6 +21,10 @@ node {
         sh "python setup.py test"
     }
 
+    stage('package') {
+        sh "python setup.py sdist bdist_wheel"
+    }
+
     stage('build container') {
         sh "sudo docker build . -t sump:latest"
     }
