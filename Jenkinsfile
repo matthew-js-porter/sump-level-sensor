@@ -5,11 +5,8 @@ node {
 
     stage('build') {
         sh "python3 -m venv venv"
-        sh """
-            #!/bin/bash
-            . ./venv/bin/activate"
-            pip install .
-        """
+        sh ". ./venv/bin/activate.csh"
+        sh "pip install ."
     }
 
     stage('test') {
