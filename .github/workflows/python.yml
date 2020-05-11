@@ -33,4 +33,4 @@ jobs:
         qemu-version: latest
     - name: Docker build
       run: |
-        docker buildx build --platform=linux/arm64
+        docker buildx build --platform=linux/arm64 .
