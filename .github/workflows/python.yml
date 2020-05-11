@@ -25,7 +25,7 @@ jobs:
     - name: Package
       run: |
         python setup.py bdist_wheel
-    ‐ name: Docker build
+    - name: Docker build
       uses: docker/build-push-action@v1
       with:
         username: ${{ DOCKER_USERNAME }}
