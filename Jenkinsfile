@@ -22,7 +22,7 @@ node {
     }
 
     stage('package') {
-        sh "python setup.py sdist bdist_wheel"
+        sh "python setup.py bdist_wheel"
     }
 
     stage('build container') {
