@@ -4,10 +4,11 @@ node {
     }
 
     stage('build') {
-        sh "python3 -m venv venv"
         sh """
             #!/bin/bash
+            python3 -m venv venv
             . ./venv/bin/activate
+            pip install --user --upgrade pip setuptools wheel
             pip install .
         """
     }
