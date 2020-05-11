@@ -1,7 +1,4 @@
-# This workflows will upload a Python Package using Twine when a release is created
-# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
-
-name: Upload Python Package
+name: Upload Docker Image
 
 on: [push]
 
@@ -28,3 +25,10 @@ jobs:
     - name: Package
       run: |
         python setup.py bdist_wheel
+    ‐ name: Docker build
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ DOCKER_USERNAME }}
+        password: ${{ DOCKER_PASSWORD }}
+        repository: matthewjsporter/sump-level-sensor
+        tags: latest
