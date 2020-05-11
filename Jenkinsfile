@@ -8,7 +8,7 @@ node {
             #!/bin/bash
             python3 -m venv venv
             . ./venv/bin/activate
-            pip install --user --upgrade pip setuptools wheel
+            pip install --user --upgrade pip setuptools wheel requests
             pip install .
         """
     }
