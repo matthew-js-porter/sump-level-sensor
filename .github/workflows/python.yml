@@ -28,7 +28,7 @@ jobs:
     - name: Docker build
       uses: docker/build-push-action@v1
       with:
-        username: ${{ secret.DOCKER_USERNAME }}
-        password: ${{ secret.DOCKER_PASSWORD }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
         repository: matthewjsporter/sump-level-sensor
         tags: latest
