@@ -33,4 +33,5 @@ jobs:
         qemu-version: latest
     - name: Docker build
       run: |
-        docker buildx build --platform=linux/arm64 .
+        echo $ {{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        docker buildx push --platform=linux/arm64 . --pu
