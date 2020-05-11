@@ -3,22 +3,22 @@ node {
         checkout scm
     }
 
-    stage('build') {
+    stage('create virtualenv') {
         sh """
             #!/bin/bash
             python3 -m venv venv
             . ./venv/bin/activate
-            pip install --upgrade pip setuptools wheel requests
-            pip install .
+            pip install --upgrade pip setuptools requests
         """
+        env.PATH = "./venv/bin:${env.PATH}"
+    }
+
+    stage('install') {
+        sh "pip install ."
     }
 
     stage('test') {
         sh "python setup.py test"
-    }
-
-    stage('package') {
-        sh "python setup.py sdist bdist_wheel"
     }
 
     stage('build container') {
