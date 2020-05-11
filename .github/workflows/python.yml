@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   deploy:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -25,10 +25,12 @@ jobs:
     - name: Package
       run: |
         python setup.py bdist_wheel
-    - name: Docker build
-      uses: docker/build-push-action@v1
+    - name: Prepare Docker buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: matthewjsporter/sump-level-sensor
-        tags: latest
+        buildx-version: latest
+        qemu-version: latest
+    - name: Docker build
+      run: |
+        docker buildx build --platform=linux/arm64
