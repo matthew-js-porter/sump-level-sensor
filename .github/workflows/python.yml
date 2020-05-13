@@ -27,6 +27,7 @@ jobs:
     - name: Test
       run: |
         python setup.py test
+        python -m coverage xml -i
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
