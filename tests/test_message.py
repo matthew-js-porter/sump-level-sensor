@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 
-from sump.MessageQueue import MessageQueue
+from sump.message import MessageQueue
 
 
 class TestMessageQueue(unittest.TestCase):

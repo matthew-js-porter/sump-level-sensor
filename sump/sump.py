@@ -1,18 +1,18 @@
+"""Entry point module. Will monitor the water levels for the sump and publish information to the message queue. """
 import boto3
-from sump.FloatSensor import FloatSensor
-from sump.MessageQueue import MessageQueue
+from sump.message import MessageQueue
 
 def main():
+    """The main method for the module that will read water levels and publish state to the message queue."""
     client = boto3.client('sns')
-    topicARN = 'arn:aws:sns:us-east-1:545853618712:sump-water-level'
+    topic_arn = 'arn:aws:sns:us-east-1:545853618712:sump-water-level'
 
-    messageQueue = MessageQueue(client, topicARN)
-    messageQueue.publish("Hello World!")
-
-    #float_sensor = FloatSensor('BOARD11')
+    message_queue = MessageQueue(client, topic_arn)
+    message_queue.publish("Hello!")
 
     while True:
         pass
+
 
 if __name__ == '__main__':
     main()
