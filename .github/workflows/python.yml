@@ -34,6 +34,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Check Sonar Status
       run: |
+        sudo apt-get install jq -y
         status=$(curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=matthew-js-porter_sump-level-sensor)
         echo $status
         echo $status | jq '.projectStatus.status' | xargs test "OK" =
