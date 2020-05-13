@@ -32,6 +32,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: Check Sonar Status
+      run: |
+        status=$(curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=matthew-js-porter_sump-level-sensor)
+        echo $status
+        echo $status | jq '.projectStatus.status' | xargs test "OK" =
     - name: Package
       run: |
         python setup.py bdist_wheel
