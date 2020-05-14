@@ -1,6 +1,7 @@
 FROM raspbian/stretch
 
 RUN sudo apt update
+RUN sudo apt upgrade -y
 RUN sudo apt install python3 -y
 RUN sudo apt install python3-venv python3-pip -y
 
