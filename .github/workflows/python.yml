@@ -65,3 +65,6 @@ jobs:
       uses: anchore/scan-action@master
       with:
         image-reference: "${{ secrets.DOCKER_USERNAME }}/sump-level-sensor:latest"
+        dockerfile-path: "./Dockerfile"
+    - name: anchore inline scan JSON results
+      run: for j in `ls ./anchore-reports/*.json`; do echo "---- ${j} ----"; cat ${j}; echo; done
