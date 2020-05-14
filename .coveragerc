@@ -7,3 +7,6 @@ omit =
     dist/*
     tests/*
     */site-packages/*
+
+    sump/sump.py
+    sump/floatsensor.py
