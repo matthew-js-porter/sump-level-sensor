@@ -29,7 +29,7 @@ docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock --r
 
 ## run
 ```bash
-docker run -v ${HOME}/.aws:/root/.aws matthewjsporter/sump-level-sensor:latest
+docker run -v ${HOME}/.aws:/home/pi/.aws matthewjsporter/sump-level-sensor:latest
 ```
 
 ## tests

@@ -10,8 +10,8 @@ setuptools.setup(
     tests_require=['pytest', 'pytest-cov', 'coverage'],
     packages=setuptools.find_packages(),
     test_suite='tests',
-    entry_points = {
-        "console_scripts" : [
+    entry_points={
+        "console_scripts": [
             "sump = sump.sump:main"
         ]
     }
