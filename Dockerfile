@@ -9,6 +9,7 @@ COPY dist/*.whl /
 RUN python3 -m pip install --upgrade pip setuptools wheel requests
 RUN python3 -m pip install *.whl
 RUN useradd -ms /bin/bash pi
-RUN mkdir /home/pi
+RUN mkdir -p /home/pi
 USER pi
 CMD sump
+HEALTHCHECK CMD ps -ef | grep sump | grep -v grep
