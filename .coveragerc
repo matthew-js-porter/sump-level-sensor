@@ -1,2 +1,9 @@
 [run]
-omit = sump/__init__.py
+omit =
+    setup.py
+    */__init__.py
+    .eggs/*
+    build/*
+    dist/*
+    tests/*
+    */site-packages/*
