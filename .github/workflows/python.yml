@@ -61,3 +61,7 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Scan image
+      uses: anchore/scan-action@master
+      with:
+        image-reference: "${{ secrets.DOCKER_USERNAME }}/sump-level-sensor:latest"
