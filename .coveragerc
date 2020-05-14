@@ -9,4 +9,3 @@ omit =
     */site-packages/*
 
     sump/sump.py
-    sump/floatsensor.py
