@@ -43,6 +43,8 @@ jobs:
       uses: snyk/actions/python@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --file=sump_level_sensor.egg-info/requires.txt --package-manager=pip
     - name: Package
       run: |
         python setup.py bdist_wheel
