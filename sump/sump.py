@@ -1,5 +1,8 @@
 """Entry point module. Will monitor the water levels for the sump and publish information to the message queue. """
 import boto3
+from gpiozero import Device
+from gpiozero.pins.mock import MockFactory
+
 from sump.floatsensor import FloatSensor
 
 from sump.message import MessageQueue
@@ -7,14 +10,16 @@ from sump.message import MessageQueue
 
 def main():
     """The main method for the module that will read water levels and publish state to the message queue."""
+    Device.pin_factory = MockFactory()
     client = boto3.client('sns')
     topic_arn = 'arn:aws:sns:us-east-1:545853618712:sump-water'
 
     message_queue = MessageQueue(client, topic_arn)
-    message_queue.publish("Hello!")
 
+    float_sensor = FloatSensor('BOARD11')
+    sump_monitor = MessageSendingSumpMonitor(float_sensor, message_queue)
     while True:
-        pass
+        sump_monitor.monitor()
 
 
 class SumpMonitor:
@@ -38,8 +43,10 @@ class MessageSendingSumpMonitor(SumpMonitor):
         self.message_queue = message_queue
 
     def monitor(self):
+        previous_water_level = self.water_level
         super(MessageSendingSumpMonitor, self).monitor()
-        self.message_queue.publish(self.water_level)
+        if previous_water_level != self.water_level:
+            self.message_queue.publish(self.water_level)
 
 
 if __name__ == '__main__':
