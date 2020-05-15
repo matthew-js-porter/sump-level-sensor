@@ -36,3 +36,17 @@ docker run -v ${HOME}/.aws:/home/pi/.aws matthewjsporter/sump-level-sensor:lates
 ```bash
 python setup.py test
 ```
+
+
+## scanning
+
+### anchore image scanning.
+```bash
+curl -s https://ci-tools.anchore.io/inline_scan-v0.6.0 | bash -s -- -t 1200 -f -d Dockerfile matthewjsporter/sump-level-sensor:latest
+
+```
+
+### snyk image scanning
+```bash
+snyk monitor --file=sump_level_sensor.egg-info/requires.txt --package-manager=pip
+```
