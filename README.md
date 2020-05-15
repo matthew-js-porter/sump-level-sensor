@@ -50,3 +50,9 @@ curl -s https://ci-tools.anchore.io/inline_scan-v0.6.0 | bash -s -- -t 1200 -f -
 ```bash
 snyk monitor --file=sump_level_sensor.egg-info/requires.txt --package-manager=pip
 ```
+
+
+## Cloudformation
+```bash
+aws cloudformation update-stack --stack-name sump-level-sensor --template-body file://aws/cloudformation.yml --parameters  ParameterKey=EmailParameter,ParameterValue=<email> ParameterKey=SMSParameter,ParameterValue=<phone>
+```

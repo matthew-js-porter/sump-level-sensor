@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  sumpWaterLevel:
+    Type: 'AWS::SNS::Topic'
+    Properties:
+      DisplayName: Sump Water Sensor
+      TopicName: sump-water
+      Subscription:
+        - Endpoint: { "Ref" : "EmailParameter" }
+          Protocol: 'email'
+        - Endpoint: { "Ref" : "SMSParameter" }
+          Protocol: 'SMS'
+Parameters:
+  EmailParameter:
+    Type: String
+    Default: no-reply@sump.com
+    Description: The email address to subscribe to alerts
+  SMSParameter:
+    Type: String
+    Default: +1
+    Description: The phone number to get sms alerts
