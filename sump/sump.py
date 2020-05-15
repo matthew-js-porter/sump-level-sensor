@@ -25,7 +25,9 @@ class SumpMonitor:
 
     def monitor(self):
         """Monitors the level in the sump and sets the water_level"""
-        if not self.float_sensor.is_water_level_high():
+        if self.float_sensor.is_water_level_high():
+            self.water_level = 'HIGH'
+        else:
             self.water_level = 'LOW'
 
 
