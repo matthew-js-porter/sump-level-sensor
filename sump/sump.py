@@ -5,7 +5,7 @@ from sump.message import MessageQueue
 def main():
     """The main method for the module that will read water levels and publish state to the message queue."""
     client = boto3.client('sns')
-    topic_arn = 'arn:aws:sns:us-east-1:545853618712:sump-water-level'
+    topic_arn = 'arn:aws:sns:us-east-1:545853618712:sump-water'
 
     message_queue = MessageQueue(client, topic_arn)
     message_queue.publish("Hello!")
