@@ -60,6 +60,7 @@ jobs:
         name: sump-level-sensor
         template: aws/cloudformation.yml
         parameter-overrides: "EmailParameter=${{ secrets.EMAIL }},SMSParameter=${{ secrets.SMS }}"
+        no-fail-on-empty-changeset: "1"
     - name: Prepare Docker buildx
       id: buildx
       uses: crazy-max/ghaction-docker-buildx@v1
