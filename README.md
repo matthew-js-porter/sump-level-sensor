@@ -23,7 +23,7 @@ docker run --privileged -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_AC
 watch tower can be deployed with this command.
 
 ```bash
-docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock --restart=always v2tec/watchtower:armhf-latest
+docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock --restart=always v2tec/watchtower:armhf-latest -i 30
 ```
 
 
