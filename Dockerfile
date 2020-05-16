@@ -18,6 +18,10 @@ RUN python3 -m pip install --upgrade --ignore-installed pip requests
 # Install packages needed to install the wheel.
 RUN python3 -m pip install --upgrade --ignore-installed setuptools wheel
 
+# Install GPIO. This wont install on non-linux OS so we install in the Docker Image.
+
+RUN python3 -m pip install RPi.GPIO
+
 # Install the wheel
 COPY dist/*.whl /
 RUN python3 -m pip install *.whl
