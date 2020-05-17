@@ -26,11 +26,5 @@ RUN python3 -m pip install RPi.GPIO
 COPY dist/*.whl /
 RUN python3 -m pip install *.whl
 
-# Create the pi user
-RUN useradd -ms /bin/bash pi -g kmem
-RUN mkdir -p /home/pi
-USER pi
-
-# Run our program
 CMD sump
 HEALTHCHECK CMD ps -ef | grep sump | grep -v grep
