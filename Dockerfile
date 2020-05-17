@@ -27,7 +27,7 @@ COPY dist/*.whl /
 RUN python3 -m pip install *.whl
 
 # Create the pi user
-RUN useradd -ms /bin/bash pi
+RUN useradd -ms /bin/bash pi -g kmem
 RUN mkdir -p /home/pi
 USER pi
 
