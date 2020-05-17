@@ -10,3 +10,7 @@ class FloatSensor(InputDevice):
     def is_water_level_high(self) -> bool:
         """Returns true is the water level is higher than the float sensor."""
         return self.is_active
+
+    @property
+    def is_active(self):
+        return not super(FloatSensor, self).is_active

@@ -12,14 +12,14 @@ class TestFloatSensor(TestCase):
     def test_water_level_is_low(self):
         float_pin = self.__mock_gpio_pin()
         float_sensor = FloatSensor(16)
-        float_pin.drive_low()
+        float_pin.drive_high()
         sleep(0.1)
         self.assertFalse(float_sensor.is_water_level_high())
 
     def test_water_level_is_high(self):
         float_pin = self.__mock_gpio_pin()
         float_sensor = FloatSensor(16)
-        float_pin.drive_high()
+        float_pin.drive_low()
         sleep(0.1)
         self.assertTrue(float_sensor.is_water_level_high())
 
