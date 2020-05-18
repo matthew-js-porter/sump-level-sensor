@@ -12,7 +12,8 @@ setuptools.setup(
     test_suite='tests',
     entry_points={
         "console_scripts": [
-            "sump = sump.sump:main"
+            "sump = sump.sump:main",
+            "mocksump = sump.sump:mockmain"
         ]
     }
 )

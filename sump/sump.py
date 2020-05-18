@@ -1,5 +1,7 @@
 """Entry point module. Will monitor the water levels for the sump and publish information to the message queue. """
 import boto3
+from gpiozero import Device
+from gpiozero.pins.mock import MockFactory
 
 from sump.floatsensor import FloatSensor
 from sump.message import MessageQueue
@@ -19,6 +21,14 @@ def main():
         sump_monitor.monitor()
 
 
+def mockmain():
+    """The main method for the module that will use Mock Pin Factory.
+    This is for testing on devices that do not have GPIO pins
+    """
+    Device.pin_factory = MockFactory()
+    main()
+
+
 class SumpMonitor:
     """Monitors the water level in the sump"""
     def __init__(self, float_sensor: FloatSensor):
@@ -31,6 +41,7 @@ class SumpMonitor:
             self.water_level = 'HIGH'
         else:
             self.water_level = 'LOW'
+        print("water level is %s." % self.water_level)
 
 
 class MessageSendingSumpMonitor(SumpMonitor):
