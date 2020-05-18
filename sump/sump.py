@@ -11,9 +11,9 @@ def main():
     """The main method for the module that will read water levels and publish state to the message queue."""
 
     client = boto3.client('sns')
-    topic_arn = 'arn:aws:sns:us-east-1:545853618712:sump-water'
+    topic = 'sump-water'
 
-    message_queue = MessageQueue(client, topic_arn)
+    message_queue = MessageQueue(client, topic)
 
     float_sensor = FloatSensor('BOARD11')
     sump_monitor = MessageSendingSumpMonitor(float_sensor, message_queue)
@@ -41,7 +41,6 @@ class SumpMonitor:
             self.water_level = 'HIGH'
         else:
             self.water_level = 'LOW'
-        print("water level is %s." % self.water_level)
 
 
 class MessageSendingSumpMonitor(SumpMonitor):
