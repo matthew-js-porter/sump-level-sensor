@@ -98,4 +98,4 @@ Results can also be found on [Sonarcloud.](https://sonarcloud.io/dashboard?id=ma
 Circuit design can be found in [circuit-diagram.fzz](circuit-diagram.fzz)
 
 ## Finished Product
-TODO: Image of finished product
+![Finished Product](docs/Finished.jpeg)
