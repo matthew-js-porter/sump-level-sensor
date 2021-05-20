@@ -51,7 +51,29 @@ aws cloudformation update-stack --stack-name sump-level-sensor --template-body f
 
 ### Setup
 
-One time installation on the raspberry pi is needed and be done using `docker compose`
+One time installation on the raspberry pi is needed
+
+1. Configure AWS credentials
+
+```shell
+sudo systemctl edit docker
+```
+
+and add the following content
+```ini
+[Service]
+Environment="AWS_ACCESS_KEY_ID=<access-key>"
+Environment="AWS_SECRET_ACCESS_KEY=<secret-key>"
+```
+
+add the following to `/home/pi/.profile`
+```shell
+export AWS_ACCESS_KEY_ID=<access-key>
+export AWS_SECRET_ACCESS_KEY=<secret-key>
+export AWS_DEFAULT_REGION=us-east-1
+```
+
+Use `docker compose` to start the containers
 
 ```shell
 curl https://raw.githubusercontent.com/matthew-js-porter/sump-level-sensor/master/docker-compose.yml > docker-compose.yml

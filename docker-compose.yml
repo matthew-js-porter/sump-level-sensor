@@ -8,9 +8,22 @@ services:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
       - AWS_DEFAULT_REGION
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: /sump/sump
+        awslogs-create-group: "true"
   watchtower:
+    privileged: true
     restart: always
     image: v2tec/watchtower:armhf-latest
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
     command: -i 30
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: /sump/watchtower
+        awslogs-create-group: "true"
