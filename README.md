@@ -49,18 +49,16 @@ cloudformation will run during the deployment pipeline but can be ran from local
 aws cloudformation update-stack --stack-name sump-level-sensor --template-body file://aws/cloudformation.yml --parameters  ParameterKey=EmailParameter,ParameterValue=<email> ParameterKey=SMSParameter,ParameterValue=<phone>
 ```
 
-### Setup watchtower
-watchtower will automatically deploy to raspberry pi. To do the initial install of watchtower run the following command.
+### Setup
 
-```bash
-docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock --restart=always v2tec/watchtower:armhf-latest -i 30
+One time installation on the raspberry pi is needed and be done using `docker compose`
+
+```shell
+curl https://raw.githubusercontent.com/matthew-js-porter/sump-level-sensor/master/docker-compose.yml > docker-compose.yml
+docker-compose up -d
 ```
 
-The sump-level-sensor image will also need to be installed for the fist time using this command.
-
-```bash
-docker run --privileged -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION --name sump --restart=always matthewjsporter/sump-level-sensor:latest
-```
+after the initial installation is done, watchtower will install updates automatically.
 
 ## Code Scanning
 
