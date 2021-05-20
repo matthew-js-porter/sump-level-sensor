@@ -84,13 +84,12 @@ after the initial installation is done, watchtower will install updates automati
 
 ## Code Scanning
 
-### Anchore Image Scanning.
+### Snyk Image Scanning.
 
-Docker image scanning is done using Anchore as part of the deployment pipeline and results can be viewed on the github action logs.
+Docker image scanning is done using Snyk as part of the deployment pipeline and results can be viewed on the github action logs.
 You can run a scan locally by running this command.
 ```bash
-curl -s https://ci-tools.anchore.io/inline_scan-v0.6.0 | bash -s -- -t 1200 -f -d Dockerfile matthewjsporter/sump-level-sensor:latest
-
+snyk test --file=Dockerfile --docker matthew-js-porter/sump-level-sensor:latest
 ```
 
 ### Snyk OSS Scanning
