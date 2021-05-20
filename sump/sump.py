@@ -46,12 +46,12 @@ class SumpMonitor:
 class MessageSendingSumpMonitor(SumpMonitor):
     """A SumpMonitor the water_level to a message queue."""
     def __init__(self, float_sensor: FloatSensor, message_queue: MessageQueue):
-        super(MessageSendingSumpMonitor, self).__init__(float_sensor)
+        super().__init__(float_sensor)
         self.message_queue = message_queue
 
     def monitor(self):
         previous_water_level = self.water_level
-        super(MessageSendingSumpMonitor, self).monitor()
+        super().monitor()
         if previous_water_level != self.water_level:
             self.message_queue.publish(self.water_level)
 

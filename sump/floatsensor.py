@@ -5,7 +5,7 @@ from gpiozero import InputDevice
 class FloatSensor(InputDevice):
     """An InputDevice that reads water levels using a float sensor."""
     def __init__(self, pins):
-        super(FloatSensor, self).__init__(pins, pull_up=False)
+        super().__init__(pins, pull_up=False)
 
     def is_water_level_high(self) -> bool:
         """Returns true is the water level is higher than the float sensor."""
@@ -13,4 +13,4 @@ class FloatSensor(InputDevice):
 
     @property
     def is_active(self):
-        return not super(FloatSensor, self).is_active
+        return not super().is_active
