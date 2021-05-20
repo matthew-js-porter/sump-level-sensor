@@ -74,11 +74,11 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Scan image
-      uses: anchore/scan-action@master
+    - name: Run Snyk to check Docker image for vulnerabilities
+      uses: snyk/actions/docker@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       with:
-        image-reference: "${{ secrets.DOCKER_USERNAME }}/sump-level-sensor:latest"
-        dockerfile-path: "./Dockerfile"
-        fail-build: true
-    - name: anchore inline scan JSON results
-      run: for j in `ls ./anchore-reports/*.json`; do echo "---- ${j} ----"; cat ${j}; echo; done
+        image: ${DOCKER_USERNAME}/sump-level-sensor:latest
+        args: --file=Dockerfile
