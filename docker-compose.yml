@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  sump:
+    restart: always
+    privileged: true
+    image: matthewjsporter/sump-level-sensor:latest
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_DEFAULT_REGION
+  watchtower:
+    restart: always
+    image: v2tec/watchtower:armhf-latest
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    command: -i 30
