@@ -1,4 +1,4 @@
-# Sump Level Sensor
+# Sump Level Sensor [![Build](https://github.com/matthew-js-porter/sump-level-sensor/actions/workflows/python.yml/badge.svg)](https://github.com/matthew-js-porter/sump-level-sensor/actions/workflows/python.yml)
 Uses a Raspberry pi to monitor the water level in my sump and will send an alert when the water is higher than a certain threshold. 
 The purpose of this tool is to be alerted in case of a sump pump failure so I can react before the basement is flooded. 
 
