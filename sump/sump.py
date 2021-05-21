@@ -60,6 +60,13 @@ class MessageSendingSumpMonitor(SumpMonitor):
         self.message_queue = message_queue
 
     def monitor(self):
+        try:
+            self.__monitor_and_publish_message()
+        except Exception:
+            logging.exception("exception while monitoring sump")
+            raise
+
+    def __monitor_and_publish_message(self):
         previous_water_level = self.water_level
         super().monitor()
         if previous_water_level != self.water_level:

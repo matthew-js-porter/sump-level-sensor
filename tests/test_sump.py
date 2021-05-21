@@ -60,6 +60,17 @@ class MyTestCase(unittest.TestCase):
         message_queue.publish.assert_not_called()
         self.assertEqual('LOW', sump_monitor.water_level)
 
+    def test_error_when_monitoring(self):
+        float_sensor = MyTestCase.__error_float_sensor()
+
+        sns_client = MagicMock()
+        message_queue = MessageQueue(sns_client, 'topic')
+        message_queue.publish = MagicMock()
+
+        sump_monitor = MessageSendingSumpMonitor(float_sensor, message_queue)
+        sump_monitor.water_level = 'LOW'
+        self.assertRaises(IOError, sump_monitor.monitor)
+
 
     @staticmethod
     def __low_water_level_float_sensor():
@@ -71,6 +82,12 @@ class MyTestCase(unittest.TestCase):
     def __high_water_level_float_sensor():
         float_sensor = FloatSensor(16)
         float_sensor.is_water_level_high = MagicMock(return_value=True)
+        return float_sensor
+
+    @staticmethod
+    def __error_float_sensor():
+        float_sensor = FloatSensor(16)
+        float_sensor.is_water_level_high = MagicMock(side_effect=IOError("ERROR!"))
         return float_sensor
 
 
