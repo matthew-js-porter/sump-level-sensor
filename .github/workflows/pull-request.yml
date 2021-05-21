@@ -1,4 +1,4 @@
-name: Deploy Docker Image
+name: Build Pull Requests
 
 on:
   pull_request:
