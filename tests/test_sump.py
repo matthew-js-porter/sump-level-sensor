@@ -70,6 +70,7 @@ class MyTestCase(unittest.TestCase):
         sump_monitor = MessageSendingSumpMonitor(float_sensor, message_queue)
         sump_monitor.water_level = 'LOW'
         self.assertRaises(IOError, sump_monitor.monitor)
+        message_queue.publish.assert_called_with('ERROR')
 
 
     @staticmethod

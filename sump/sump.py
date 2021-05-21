@@ -64,6 +64,7 @@ class MessageSendingSumpMonitor(SumpMonitor):
             self.__monitor_and_publish_message()
         except Exception:
             logging.exception("exception while monitoring sump")
+            self.message_queue.publish('ERROR')
             raise
 
     def __monitor_and_publish_message(self):
