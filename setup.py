@@ -15,5 +15,8 @@ setuptools.setup(
             "sump = sump.sump:main",
             "mocksump = sump.sump:mockmain"
         ]
+    },
+    package_data={
+        'sump': ['logging.ini']
     }
 )

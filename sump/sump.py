@@ -1,10 +1,20 @@
 """Entry point module. Will monitor the water levels for the sump and publish information to the message queue. """
+import os
+import logging
+import logging.config
+import configparser
 import boto3
 from gpiozero import Device
 from gpiozero.pins.mock import MockFactory
 
 from sump.floatsensor import FloatSensor
 from sump.message import MessageQueue
+
+config_file = os.path.join(os.path.dirname(__file__), 'logging.ini')
+config = configparser.ConfigParser()
+config.read(config_file)
+
+logging.config.fileConfig(config_file)
 
 
 def main():
@@ -53,6 +63,7 @@ class MessageSendingSumpMonitor(SumpMonitor):
         previous_water_level = self.water_level
         super().monitor()
         if previous_water_level != self.water_level:
+            logging.info("Water level = %s", self.water_level)
             self.message_queue.publish(self.water_level)
 
 
