@@ -1,0 +1,83 @@
+name: Deploy Docker Image
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools wheel pylint
+    - name: Install
+      run: |
+        python -m pip install .
+    - name: Lint
+      run: |
+        pylint sump
+    - name: Test
+      run: |
+        python setup.py test
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: Check Sonar Status
+      run: |
+        status=$(curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=matthew-js-porter_sump-level-sensor)
+        echo $status | jq '.'
+        status=$(echo $status | jq '.projectStatus.status')
+        test '"OK"' = $status
+
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/python@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --file=sump_level_sensor.egg-info/requires.txt --package-manager=pip
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: python
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
+
+    - name: Package
+      run: |
+        python setup.py bdist_wheel
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Prepare Docker buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        buildx-version: latest
+        qemu-version: latest
+    - name: Docker build
+      run: docker buildx build --platform=linux/arm64 -t matthewjsporter/sump-level-sensor:latest .
+    - name: Run Snyk to check Docker image for vulnerabilities
+      uses: snyk/actions/docker@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        image: matthewjsporter/sump-level-sensor:latest
+        args: --file=Dockerfile
