@@ -68,7 +68,7 @@ jobs:
 
     - name: Prepare Docker buildx
       id: buildx
-      uses: crazy-max/ghaction-docker-buildx@v1
+      uses: crazy-max/ghaction-docker-buildx@v3
       with:
         buildx-version: latest
         qemu-version: latest
