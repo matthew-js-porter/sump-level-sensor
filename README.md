@@ -36,7 +36,7 @@ Deployments are done through [github actions](.github/workflows/python.yml). The
 notifications are sent to a SNS message queue and is created using CloudFormation.
 
 ### Deployment Diagram
- ![deployment diagram](docs/deployment-diagram.png)
+ ![deployment diagram](docs/deployment-diagram.drawio.png)
 
 ### Deploy from local
 ```bash
