@@ -27,3 +27,15 @@ services:
         awslogs-region: us-east-1
         awslogs-group: /sump/watchtower
         awslogs-create-group: "true"
+  health:
+    privileged: true
+    restart: always
+    image: matthewjsporter/docker-healthcheck
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: /sump/health
+        awslogs-create-group: "true"
