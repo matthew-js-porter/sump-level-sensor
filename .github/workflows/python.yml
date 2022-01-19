@@ -16,6 +16,19 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -65,6 +78,7 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
+
     - name: Deploy to AWS CloudFormation
       uses: aws-actions/aws-cloudformation-github-deploy@v1
       with:
@@ -72,14 +86,14 @@ jobs:
         template: aws/cloudformation.yml
         parameter-overrides: "EmailParameter=${{ secrets.EMAIL }},SMSParameter=${{ secrets.SMS }}"
         no-fail-on-empty-changeset: "1"
-    - name: Prepare Docker buildx
-      id: buildx
-      uses: crazy-max/ghaction-docker-buildx@v3
+
+    - name: Build and export to Docker
+      uses: docker/build-push-action@v2
       with:
-        buildx-version: latest
-        qemu-version: latest
-    - name: Docker build
-      run: docker buildx build --platform=linux/arm64 -t matthewjsporter/sump-level-sensor:latest .
+        context: .
+        load: true
+        tags: matthewjsporter/sump-level-sensor:latest
+
     - name: Run Snyk to check Docker image for vulnerabilities
       uses: snyk/actions/docker@master
       env:
@@ -87,10 +101,11 @@ jobs:
       with:
         image: matthewjsporter/sump-level-sensor:latest
         args: --file=Dockerfile
-    - name: Docker push
-      run: |
-        echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-        docker push ${DOCKER_USERNAME}/sump-level-sensor:latest
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        platforms: linux/arm64
+        push: true
+        tags: matthewjsporter/sump-level-sensor:latest
