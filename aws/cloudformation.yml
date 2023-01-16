@@ -10,6 +10,30 @@ Resources:
           Protocol: 'email'
         - Endpoint: { "Ref" : "SMSParameter" }
           Protocol: 'SMS'
+  sumpHealthAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Sump Health check failed
+      AlarmDescription: |-
+        # ERROR
+        No Health data for Sump
+      ActionsEnabled: true
+      OKActions: [ ]
+      AlarmActions:
+        - arn:aws:sns:us-east-1:545853618712:alerts
+      InsufficientDataActions: [ ]
+      MetricName: IncomingLogEvents
+      Namespace: AWS/Logs
+      Statistic: Average
+      Dimensions:
+        - Name: LogGroupName
+          Value: /sump/health
+      Period: 3600
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      Threshold: 1
+      ComparisonOperator: LessThanThreshold
+      TreatMissingData: breaching
 Parameters:
   EmailParameter:
     Type: String
