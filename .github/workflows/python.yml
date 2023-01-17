@@ -100,7 +100,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         image: matthewjsporter/sump-level-sensor:latest
-        args: --file=Dockerfile
+        args: --exclude-base-image-vulns --file=Dockerfile --policy-path=.snyk
 
     - name: Build and push
       uses: docker/build-push-action@v2

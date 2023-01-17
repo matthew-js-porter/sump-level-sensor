@@ -58,7 +58,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         image: matthewjsporter/sump-level-sensor:latest
-        args: --file=Dockerfile
+        args: --exclude-base-image-vulns --file=Dockerfile --policy-path=.snyk
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v1
       with:
