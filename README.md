@@ -89,7 +89,7 @@ after the initial installation is done, watchtower will install updates automati
 Docker image scanning is done using Snyk as part of the deployment pipeline and results can be viewed on the github action logs.
 You can run a scan locally by running this command.
 ```bash
-snyk test --file=Dockerfile --docker matthew-js-porter/sump-level-sensor:latest
+snyk container test --exclude-base-image-vulns --file=Dockerfile --policy-path=.snyk matthewjsporter/sump-level-sensor:latest
 ```
 
 ### Snyk OSS Scanning
@@ -97,7 +97,7 @@ snyk test --file=Dockerfile --docker matthew-js-porter/sump-level-sensor:latest
 OSS image scanning is done using Snyk as part of the deployment pipeline and results can be viewed on the github action logs.
 You can run a scan locally by running this command.
 ```bash
-snyk monitor --file=sump_level_sensor.egg-info/requires.txt --package-manager=pip
+snyk test --file=sump_level_sensor.egg-info/requires.txt --package-manager=pip
 ```
 
 
