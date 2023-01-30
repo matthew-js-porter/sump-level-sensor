@@ -88,7 +88,7 @@ jobs:
         no-fail-on-empty-changeset: "1"
 
     - name: Build and export to Docker
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4
       with:
         context: .
         load: true
@@ -103,7 +103,7 @@ jobs:
         args: --exclude-base-image-vulns --file=Dockerfile --policy-path=.snyk
 
     - name: Build and push
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4
       with:
         context: .
         platforms: linux/arm64
