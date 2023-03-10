@@ -77,4 +77,4 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         image: matthewjsporter/sump-level-sensor:latest
-        args: --file=Dockerfile
+        args: --file=Dockerfile --platform=linux/arm64
