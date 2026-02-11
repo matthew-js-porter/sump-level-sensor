@@ -77,7 +77,7 @@ jobs:
         aws-region: us-east-1
 
     - name: Deploy to AWS CloudFormation
-      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      uses: aws-actions/aws-cloudformation-github-deploy@v2
       with:
         name: sump-level-sensor
         template: aws/cloudformation.yml
